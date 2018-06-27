@@ -48,7 +48,7 @@ const config = {
             use: [{
                 loader: 'file-loader',
                 options: {
-                    name: 'img/[name][hash].[ext]'
+                    name: 'images/[name].[ext]'
                 }
             }, {
                 loader: 'image-webpack-loader',
@@ -65,7 +65,7 @@ const config = {
             use: {
                 loader: 'file-loader',
                 options: {
-                    name: 'fonts/[name][hash].[ext]'
+                    name: 'fonts/[name].[ext]'
                 }
             },
         }]
