@@ -96,9 +96,10 @@ const config = {
     } : {},
     devServer: {
         contentBase: distPath,
-        port: 9000,
+        port: 8000,
         compress: true,
         open: true
     }
 };
+
 module.exports = config;
