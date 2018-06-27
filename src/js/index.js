@@ -1,41 +1,50 @@
-import jQuery from 'jquery';
 import './../scss/styles.scss';
 import './../js/threesixty.js';
-// import _ from 'lodash';
+import _ from 'lodash';
 
 // const getHeader = () => {
-//     const helloWebpack = _.join(_.values({
-//         a: 'Hello',
-//         b: 'webpack'
-//     }), ' ');
-//
-//     const element = document.createElement('h1');
-//
-//     element.innerHTML = helloWebpack;
-//
-//     return element;
+    // const helloWebpack = _.join(_.values({
+    //     a: 'Hello',
+    //     b: 'webpack'
+    // }), ' ');
+    //
+    // const element = document.createElement('h1');
+    //
+    // element.innerHTML = helloWebpack;
+    //
+    // return element;
 // };
 //
 // document.body.appendChild(getHeader());
 
+
+const parentEl = document.getElementById("id"),
+    img = document.createElement("IMG");
+
+img.src = "./1.png";
+
+
+parentEl.appendChild(img);
+
+
+
 // Threesixty images function
 $(function() {
 
-    let arr = new Array();
-    $("#dvImages img").each(function () {
-        arr.push($(this).attr("src"));
-    });
-
-    $("#product1, #product2, #product3").attr("src", arr[0]);
+    // var arr = new Array();
+    // $("#dvImages img").each(function () {
+    //     arr.push($(this).attr("src"));
+    // });
+    //
+    // $("#product1, #product2, #product3").attr("src", arr[0]);
 
     $('.threesixty').ThreeSixty({
-        images: arr,
-        method: 'click',
-        sensibility: 2,
-        totalFrames: 52, // Total no. of image you have for 360 slider
-        endFrame: 52, // end frame for the auto spin animation
-        currentFrame: 1, // This the start frame for auto spin
-        imagePath: './../images/',
+        totalFrames: 52,
+        endFrame: 52,
+        currentFrame: 1,
+        framerate: 20,
+        imgList: '.threesixty_images',
+        imagePath: './src/images/',
         ext: '.png',
         height: 1000,
         width: 447,
