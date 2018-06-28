@@ -14,7 +14,7 @@
      *
      * This as jQuery plugin to create 360 degree product image slider.
      * The plugin is full customizable with number of options provided. The plugin
-     * have the power to display images in any angle 360 degrees. This feature can be
+     * have the power to display img in any angle 360 degrees. This feature can be
      * used successfully in many use cases e.g. on an e-commerce site to help customers
      * look products in detail, from any angle they desire.
      *
@@ -110,7 +110,7 @@
         /**
          * @method initProgress
          * The function sets initial styles and start the progress indicator
-         * to show loading of images.
+         * to show loading of img.
          *
          * @private
          */
@@ -136,7 +136,7 @@
         /**
          * @method loadImages
          * @private
-         * The function asynchronously loads images and inject into the slider.
+         * The function asynchronously loads img and inject into the slider.
          */
         base.loadImages = function() {
             var li, imageName, image, host, baseIndex;
@@ -182,10 +182,10 @@
         /**
          * @method loadImages
          * @private
-         * This function is called when all the images are loaded.
+         * This function is called when all the img are loaded.
          * **The function does following operations**
          * - Removes background image placeholder
-         * - Displays the 360 images
+         * - Displays the 360 img
          * - Initilizes mouse intraction events
          */
         base.showImages = function () {
@@ -437,11 +437,11 @@
                 if (AppConfig.dragging) {
                     event.preventDefault();
                     if(!base.browser.isIE && AppConfig.showCursor) {
-                        base.$el.css('cursor', 'url(assets/images/hand_closed.png), auto');
+                        base.$el.css('cursor', 'url(assets/img/hand_closed.png), auto');
                     }
                 } else {
                     if(!base.browser.isIE && AppConfig.showCursor) {
-                        base.$el.css('cursor', 'url(assets/images/hand_open.png), auto');
+                        base.$el.css('cursor', 'url(assets/img/hand_open.png), auto');
                     }
                 }
                 base.trackPointer(event);
@@ -721,7 +721,7 @@
             endFrame: 0,
             /**
              * @cfg {Number} loadedImages
-             * Private property contains count of loaded images.
+             * Private property contains count of loaded img.
              */
             loadedImages: 0,
             /**
@@ -837,7 +837,7 @@
             drag: true,
             /**
              * @cfg {Function} onReady
-             * Callback triggers once all images are loaded and ready to render on the screen
+             * Callback triggers once all img are loaded and ready to render on the screen
              */
             onReady: function() {},
             /**
@@ -857,7 +857,7 @@
             imgList: '.threesixty_images',
             /**
              * @cfg {Array} imgArray
-             * Use set of images in array to load images
+             * Use set of img in array to load img
              */
             imgArray: null,
             /**

@@ -1,105 +1,93 @@
 const path = require('path');
-const argv = require('yargs').argv;
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const fs = require('fs')
 
-const isDevelopment = argv.mode === 'development';
-const isProduction = !isDevelopment;
-const distPath = path.join(__dirname, '/public');
+function generateHtmlPlugins(templateDir) {
+    const templateFiles = fs.readdirSync(path.resolve(__dirname, templateDir));
+    return templateFiles.map(item => {
+        const parts = item.split('.');
+    const name = parts[0];
+    const extension = parts[1];
+    return new HtmlWebpackPlugin({
+        filename: `${name}.html`,
+        template: path.resolve(__dirname, `${templateDir}/${name}.${extension}`),
+        inject: false,
+    })
+})
+}
 
-const config = {
-    entry: {
-        main: './src/js/index.js'
-    },
+const htmlPlugins = generateHtmlPlugins('./src/html/views');
+
+module.exports = {
+    entry: [
+        './src/js/index.js',
+        './src/scss/styles.scss'
+    ],
     output: {
-        filename: 'bundle.js',
-        path: distPath
+        filename: './js/bundle.js'
     },
+    devtool: "source-map",
     module: {
         rules: [{
-            test: /\.html$/,
-            use: 'html-loader'
-        }, {
             test: /\.js$/,
-            exclude: /node_modules/,
-            use: [{
+            include: path.resolve(__dirname, 'src/js'),
+            use: {
                 loader: 'babel-loader',
                 options: {
-                    presets: ['env']
+                    presets: [
+                        ['@babel/preset-env', { modules: false }],
+                    ],
+                    plugins: ['@babel/plugin-proposal-class-properties'],
                 }
-            }]
-        }, {
-            test: /\.scss$/,
-            exclude: /node_modules/,
-            use: [
-                isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
-                {
-                    loader: 'css-loader',
-                    options: {
-                        minimize: isProduction
-                    }
-                },
-                'sass-loader',
-                'resolve-url-loader'
-            ]
-        }, {
-            test: /\.(gif|png|jpe?g|svg)$/i,
-            use: [{
-                loader: 'file-loader',
-                options: {
-                    name: 'images/[name].[ext]'
-                }
-            }, {
-                loader: 'image-webpack-loader',
-                options: {
-                    mozjpeg: {
-                        progressive: true,
-                        quality: 70
-                    }
-                }
+            }
+        },
+            {
+                test: /\.(sass|scss)$/,
+                include: path.resolve(__dirname, 'src/scss'),
+                use: ExtractTextPlugin.extract({
+                    use: [{
+                        loader: "css-loader",
+                        options: {
+                            sourceMap: true,
+                            minimize: true,
+                            url: false
+                        }
+                    },
+                        {
+                            loader: "sass-loader",
+                            options: {
+                                sourceMap: true
+                            }
+                        }
+                    ]
+                })
             },
-            ],
-        }, {
-            test: /\.(eot|svg|ttf|woff|woff2)$/,
-            use: {
-                loader: 'file-loader',
-                options: {
-                    name: 'fonts/[name].[ext]'
-                }
+            {
+                test: /\.html$/,
+                include: path.resolve(__dirname, 'src/html/includes'),
+                use: ['raw-loader']
             },
-        }]
+        ]
     },
     plugins: [
-        new MiniCssExtractPlugin({
-            filename: '[name].css',
-            chunkFilename: '[id].css'
+        new ExtractTextPlugin({
+            filename: './css/style.bundle.css',
+            allChunks: true,
         }),
-        new HtmlWebpackPlugin({
-            template: './src/index.html'
-        })
-    ],
-    optimization: isProduction ? {
-        minimizer: [
-            new UglifyJsPlugin({
-                sourceMap: true,
-                uglifyOptions: {
-                    compress: {
-                        inline: false,
-                        warnings: false,
-                        drop_console: true,
-                        unsafe: true
-                    },
-                },
-            }),
-        ],
-    } : {},
-    devServer: {
-        contentBase: distPath,
-        port: 8000,
-        compress: true,
-        open: true
-    }
+        new CopyWebpackPlugin([{
+            from: './src/fonts',
+            to: './fonts'
+        },
+            {
+                from: './src/favicon',
+                to: './favicon'
+            },
+            {
+                from: './src/img',
+                to: './img'
+            }
+        ]),
+    ].concat(htmlPlugins)
 };
-
-module.exports = config;

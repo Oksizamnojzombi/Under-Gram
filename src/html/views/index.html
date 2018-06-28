@@ -1,0 +1,22 @@
+<!-- MAIN CONTENT TEMPLATE -->
+
+<% var data = {
+title: "Under Gram",
+author: "Oksi"
+}; %>
+
+<!-- HEADER -->
+<%= _.template(require('./../includes/header.html'))(data) %>
+
+<div class="container">
+  Первая страница.
+</div>
+
+
+<!-- FOOTER -->
+<%= _.template(require('./../includes/footer.html'))(data) %>
+
+
+<!--<div id="id">-->
+<!--<iframe width="800px;" height="600px" frameborder="0" src="http://3dbin.com/player/zxlqspjv"></iframe>-->
+<!--</div>-->
