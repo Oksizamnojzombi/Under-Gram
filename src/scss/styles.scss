@@ -1,11 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,700,700i,800,800i');
 @import "~bootstrap/scss/bootstrap";
 @import "tools/variables.scss";
-
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-}
 
 * {
   box-sizing: border-box;
@@ -26,6 +21,7 @@ li {
 .main-container {
   min-height: calc(100vh - 384px);
 }
+
 //modules
 @import "modules/header.scss";
 @import "modules/footer.scss";
