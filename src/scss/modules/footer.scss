@@ -1,0 +1,50 @@
+footer {
+  background-color: $main-bg;
+  padding: 42px 0 20px;
+  p, a {
+    color: $white;
+    text-align: center;
+    font-weight: 300;
+    margin: 0;
+  }
+
+  .contact-title {
+    font-size: 30px;
+    font-weight: 500;
+    letter-spacing: 0.45px;
+    line-height: 45px;
+    text-transform: uppercase;
+  }
+
+  .contact-content {
+    opacity: 0.8;
+    font-size: 18px;
+    line-height: 28px;
+    margin-bottom: 20px;
+  }
+
+  .mail-support,
+  .facebook-support {
+    opacity: 0.78;
+    font-size: $font16px;
+    line-height: 28px;
+    margin-bottom: 8px;
+  }
+
+  .footer-menu {
+    display: flex;
+    justify-content: center;
+    margin: 50px 0 0;
+
+    li, a {
+      opacity: 0.5;
+      font-size: $font16px;
+      line-height: 24px;
+      text-align: center;
+    }
+
+    li {
+      padding: 5px 10px;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+header {
+  background: $main-bg;
+
+  .header-menu {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+
+    li {
+      padding: 25px;
+
+      a {
+        color: $white;
+      }
+    }
+  }
+}
