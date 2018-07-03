@@ -4,13 +4,76 @@
 }
 
 .column {
-  -webkit-column-width: 400px;
-  -moz-column-width: 400px;
-  column-width: 400px;
   -webkit-column-count: 2;
   -moz-column-count: 2;
   column-count: 2;
   -webkit-column-gap: 50px;
   -moz-column-gap: 50px;
   column-gap: 50px;
+}
+
+.container-boxes {
+  position: relative;
+  border: 1px solid $main-gold;
+  border-radius: 8px;
+  min-height: 345px;
+  margin-top: 45px;
+}
+
+.box-img {
+  position: absolute;
+  padding: 0;
+  top: -15px;
+  left: -15px;
+
+  .img-title {
+    position: absolute;
+    pacity: 0.7;
+    color: $blue;
+    font-size: 29px;
+    font-weight: 300;
+    letter-spacing: 0.44px;
+    line-height: 35px;
+    text-align: center;
+    text-transform: uppercase;
+    top: 20%;
+    left: 15%;
+  }
+}
+
+.box-description {
+  position: absolute;
+  right: -15px;
+  bottom: -15px;
+  padding: 48px 48px 43px;
+  border-radius: 8px;
+  background-color: #F5F7FD;
+  background: linear-gradient(135deg, #FFFFFF 0%, #F5F7FD 100%);
+  box-shadow: 1px 3px 14px 0 rgba(13,20,39,0.1);
+
+  .descript-title {
+    font-weight: $fontWeight700;
+    font-size: 26px;
+    letter-spacing: 0.65px;
+    line-height: 38px;
+    position: relative;
+    padding-right: 75px;
+
+    &:after {
+      position: absolute;
+      content: '';
+      width: 75px;
+      height: 75px;
+      top: 0;
+      right: 0;
+      background: url("../../img/logoGuiness.png") no-repeat center;
+      background-size: contain;
+    }
+  }
+
+  .descript-text {
+    font-size: $font18px;
+    font-weight: $fontWeight300;
+    line-height: 28px;
+  }
 }

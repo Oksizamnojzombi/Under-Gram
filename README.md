@@ -188,3 +188,5 @@ const path = require('path');
         
     All. Now, using the ~ npm run build command, we collect the project and the assembled static site appears in the dist folder.
     
+
+Link to the resource for the procurement of the site. If necessary, recompile the project. - https://github.com/Harrix/static-site-webpack-habrahabr/blob/master/docs/article.md

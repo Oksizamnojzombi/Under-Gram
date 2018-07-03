@@ -9,6 +9,7 @@ html {
 body {
   font-family: $Montserrat;
   color: $main-color;
+  font-weight: $fontWeight400;
 }
 
 li {
@@ -26,4 +27,60 @@ li {
   line-height: 45px;
   text-align: center;
   text-transform: uppercase;
+}
+
+.link-view {
+  color: $main-gold;
+  font-size: $font18px;
+  font-weight: 500;
+  line-height: 28px;
+
+  &:hover {
+    color: $main-gold;
+  }
+}
+
+.btn-container {
+  text-align: center;
+  margin: 50px auto 0;
+}
+
+.btn-primary {
+  background-color: #212D4C;
+  border-color: #212D4C;
+  color: $white;
+  font-weight: 200;
+  font-family: $Montserrat;
+  font-size: $font18px;
+  line-height: 28px;
+  text-align: center;
+  text-transform: uppercase;
+  min-width: 250px;
+  padding: 10px 15px;
+  border-radius: 8px;
+
+  &:hover,
+  &:focus {
+    background-color: #212D4C;
+    border-color: #212D4C;
+
+    -webkit-box-shadow: inset 0px 0px 0px 3px #212D4C, inset 0px 0px 0px 4px $white;
+    -moz-box-shadow: inset 0px 0px 0px 3px #212D4C, inset 0px 0px 0px 4px $white;
+    box-shadow: inset 0px 0px 0px 3px #212D4C, inset 0px 0px 0px 4px $white;
+  }
+
+  &:focus,
+  &:active,
+  &:visited,
+  &:not(:disabled):not(.disabled).active:focus,
+  &:not(:disabled):not(.disabled):active:focus,
+  &:not(:disabled):not(.disabled):active {
+    outline: none;
+    background-color: $main-bg;
+    border-color: $main-bg;
+
+    -webkit-box-shadow: inset 0px 0px 0px 3px $main-bg, inset 0px 0px 0px 4px $white;
+    -moz-box-shadow: inset 0px 0px 0px 3px $main-bg, inset 0px 0px 0px 4px $white;
+    box-shadow: inset 0px 0px 0px 3px $main-bg, inset 0px 0px 0px 4px $white;
+  }
 }
