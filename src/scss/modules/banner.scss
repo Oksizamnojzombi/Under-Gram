@@ -1,0 +1,25 @@
+.container-bg {
+  min-height: 930px;
+  width: 100%;
+  background: linear-gradient(to bottom, #DDE6ED, #B2BDC8);
+
+  .text-banner {
+    color: #737b89;
+    font-size: 50px;
+    font-style: italic;
+    font-weight: 200;
+    letter-spacing: 0.41px;
+    line-height: 61px;
+    margin: 25% auto 0;
+    padding-left: 5%;
+
+    .italy-font {
+      color: $font-color;
+      font-family: $Yesteryear;
+      font-size: 66px;
+      letter-spacing: 0.54px;
+      line-height: 96px;
+      opacity: 1;
+    }
+  }
+}

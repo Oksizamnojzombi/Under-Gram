@@ -19,7 +19,7 @@ footer {
 
   .contact-content {
     opacity: 0.8;
-    font-size: 18px;
+    font-size: $font18px;
     line-height: 28px;
     margin-bottom: 20px;
   }
@@ -30,6 +30,12 @@ footer {
     font-size: $font16px;
     line-height: 28px;
     margin-bottom: 8px;
+
+    &:hover {
+      a {
+        color: $white;
+      }
+    }
   }
 
   .footer-menu {
@@ -42,6 +48,11 @@ footer {
       font-size: $font16px;
       line-height: 24px;
       text-align: center;
+
+      &:hover {
+        opacity: 1;
+        color: $white;
+      }
     }
 
     li {

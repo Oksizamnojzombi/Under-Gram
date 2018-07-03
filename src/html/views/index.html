@@ -8,15 +8,19 @@ author: "Oksi"
 <!-- HEADER -->
 <%= _.template(require('./../includes/header.html'))(data) %>
 
-<div class="container main-container">
-  <p>main container</p>
+<div id="mainPage" class="container-fluid main-container">
+  <div class="row">
+    <!-- BANNER SECTION -->
+    <%= _.template(require('./../includes/banner.html'))(data) %>
+    
+    <!-- ABOUT US SECTION -->
+    <%= _.template(require('./../includes/about.html'))(data) %>
+  
+    <!-- BLOCK WITH SLIDER 360 -->
+    <%= _.template(require('./../includes/slider-360grad.html'))(data) %>
+  </div>
 </div>
 
 
 <!-- FOOTER -->
 <%= _.template(require('./../includes/footer.html'))(data) %>
-
-
-<!--<div id="id">-->
-<!--<iframe width="800px;" height="600px" frameborder="0" src="http://3dbin.com/player/zxlqspjv"></iframe>-->
-<!--</div>-->

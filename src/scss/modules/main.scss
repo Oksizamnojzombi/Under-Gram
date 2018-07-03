@@ -1,0 +1,29 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100vh;
+}
+
+body {
+  font-family: $Montserrat;
+  color: $main-color;
+}
+
+li {
+  list-style: none;
+}
+
+.main-container {
+  min-height: calc(100vh - 384px);
+}
+
+.content-title {
+  font-size: 30px;
+  font-weight: bold;
+  letter-spacing: 0.45px;
+  line-height: 45px;
+  text-align: center;
+  text-transform: uppercase;
+}

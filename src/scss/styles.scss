@@ -1,27 +1,14 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,700,700i,800,800i');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,700,700i,800,800i|Yesteryear');
 @import "~bootstrap/scss/bootstrap";
-@import "tools/variables.scss";
+//Tools
+@import "tools/variables";
+@import "tools/mixins";
+@import "tools/font_awesome/font-awesome";
 
-* {
-  box-sizing: border-box;
-}
-
-html {
-  height: 100vh;
-}
-
-body {
-  font-family: $Montserrat;
-}
-
-li {
-  list-style: none;
-}
-
-.main-container {
-  min-height: calc(100vh - 384px);
-}
-
-//modules
-@import "modules/header.scss";
-@import "modules/footer.scss";
+//Modules
+@import "modules/main";
+@import "modules/header";
+@import "modules/banner";
+@import "modules/about";
+@import "modules/slider";
+@import "modules/footer";
