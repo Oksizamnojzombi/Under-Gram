@@ -12,6 +12,7 @@
   .img-container {
     position: relative;
     margin: 122px auto 30px;
+    text-align: center;
 
     .first-block, .second-block, .third-block, .fourth-block {
       position: absolute;
@@ -51,8 +52,8 @@
     }
 
     .first-block {
-      top: 102px;
-      left: -65px;
+      top: 21%;
+      left: 1%;
 
       &:before {
         height: 80px;
@@ -63,7 +64,7 @@
     }
 
     .second-block {
-      left: 41%;
+      left: 48%;
       top: -15%;
 
       &:before {
@@ -85,8 +86,8 @@
     }
 
     .third-block {
-      right: 30%;
-      top: 35%;
+      right: 24%;
+      top: 34%;
 
       &:before {
         height: 96px;
@@ -105,7 +106,7 @@
 
     .fourth-block {
       bottom: 27%;
-      left: 30%;
+      left: 35%;
 
       &:before {
         height: 36px;

@@ -1,0 +1,23 @@
+.middle_banner {
+  background-color: $superlightblue;
+  background: url("../../img/PrestigeBlock.png") no-repeat center;
+  background-size: cover;
+  padding: 97px 0 59px;
+
+  .container {
+    padding: 95px 115px;
+    text-align: left;
+  }
+
+  .big-text {
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 54px;
+    max-width: 430px;
+  }
+
+  .btn-container {
+    padding: 0;
+    text-align: left;
+  }
+}
