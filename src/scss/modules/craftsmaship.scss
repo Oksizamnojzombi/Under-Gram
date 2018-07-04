@@ -1,0 +1,141 @@
+.blue-bg {
+  background: radial-gradient(circle, rgba(255,255,255,.3) 0%, rgba(13,20,38,1) 40%);
+}
+
+.craftsmaship {
+  background-color: $main-bg;
+
+  .content-title, .text {
+    color: $white;
+  }
+
+  .img-container {
+    position: relative;
+    margin: 122px auto 30px;
+
+    .first-block, .second-block, .third-block, .fourth-block {
+      position: absolute;
+      z-index: 2;
+
+      &:before {
+        position: absolute;
+        content: "";
+        width: 198px;
+        border-radius: 8px;
+        border-top: 1px dashed rgba(255,255,255,.5);
+        z-index: 2;
+      }
+
+      &:after {
+        position: absolute;
+        content: '';
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        bottom: -120%;
+        right: -23%;
+        background-color: rgba(67, 82, 121,.8);
+        -webkit-box-shadow: 0px 0px 0px 8px rgba(67, 82, 121,.5);
+        -moz-box-shadow: 0px 0px 0px 8px rgba(67, 82, 121,.5);
+        box-shadow: 0px 0px 0px 8px rgba(67, 82, 121,.5);
+        z-index: 5;
+      }
+    }
+
+    .text {
+      font-size: 20px;
+      font-weight: $fontWeight300;
+      line-height: 28px;
+      width: 175px;
+      text-align: left;
+    }
+
+    .first-block {
+      top: 102px;
+      left: -65px;
+
+      &:before {
+        height: 80px;
+        bottom: -94%;
+        right: -13%;
+        border-right: 1px dashed rgba(255,255,255,.5);
+      }
+    }
+
+    .second-block {
+      left: 41%;
+      top: -15%;
+
+      &:before {
+        height: 75px;
+        width: 260px;
+        bottom: -94%;
+        left: -42%;
+        border-left: 1px dashed rgba(255,255,255,.5);
+      }
+
+      &:after {
+        bottom: -106%;
+        right: 131%;
+      }
+
+      .text {
+        text-align: right;
+      }
+    }
+
+    .third-block {
+      right: 30%;
+      top: 35%;
+
+      &:before {
+        height: 96px;
+        bottom: 15%;
+        right: -13%;
+        border-top: none;
+        border-bottom: 1px dashed rgba(255,255,255,.5);
+        border-right: 1px dashed rgba(255,255,255,.5);
+      }
+
+      &:after {
+        bottom: 185%;
+        right: -24%;
+      }
+    }
+
+    .fourth-block {
+      bottom: 27%;
+      left: 30%;
+
+      &:before {
+        height: 36px;
+        bottom: -35%;
+        right: -13%;
+        border-right: 1px dashed rgba(255,255,255,.5);
+      }
+
+      &:after {
+        bottom: -58%;
+        right: -24%;
+      }
+    }
+
+    img {
+      z-index: 100;
+    }
+  }
+
+  .descript {
+    color: $white;
+    font-size: $font18px;
+    font-weight: $fontWeight300;
+    line-height: 28px;
+    text-align: center;
+    width: 60%;
+    margin: 0 auto;
+  }
+
+  .btn-container {
+    margin: 15px auto 0;
+  }
+}

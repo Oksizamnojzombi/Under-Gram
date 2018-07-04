@@ -83,4 +83,20 @@ li {
     -moz-box-shadow: inset 0px 0px 0px 3px $main-bg, inset 0px 0px 0px 4px $white;
     box-shadow: inset 0px 0px 0px 3px $main-bg, inset 0px 0px 0px 4px $white;
   }
+
+  &.white-btn {
+    background-color: $white;
+    border-color: $white;
+    color: #212D4C;
+
+    &:hover,
+    &:focus {
+      background-color: $white;
+      border-color: $white;
+
+      -webkit-box-shadow: inset 0px 0px 0px 3px $white, inset 0px 0px 0px 4px $main-bg;
+      -moz-box-shadow: inset 0px 0px 0px 3px $white, inset 0px 0px 0px 4px $main-bg;
+      box-shadow: inset 0px 0px 0px 3px $white, inset 0px 0px 0px 4px $main-bg;
+    }
+  }
 }
