@@ -1,0 +1,83 @@
+.advanced-optical {
+  background: $main-bg;
+  background: url("../../img/Bitmap.png") no-repeat center;
+  background-size: cover;
+  padding-bottom: 290px;
+
+  .content-title {
+    color: $white;
+  }
+
+  .flex-container {
+    display: flex;
+    margin: 25px auto 0;
+
+    .inner-box {
+      width: 33.33%;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+
+      &.second {
+        align-self: center;
+      }
+
+      .inner-cell {
+        width: 195px;
+
+        &.to-right {
+          align-self: flex-end;
+        }
+
+        &.to-left {
+          align-self: flex-start;
+        }
+      }
+
+      .descript {
+        position: relative;
+        width: 100%;
+        padding-top: 96px;
+
+        &:before {
+          position: absolute;
+          top: 0;
+          left: 26%;
+        }
+
+        &.uv-protecton {
+          &:before {
+            content: url("../../img/UVProtection.svg");
+          }
+        }
+
+        &.premium-coating {
+          &:before {
+            content: url("../../img/Antiglare.png");
+          }
+        }
+
+        &.trivex {
+          &:before {
+            left: 31%;
+            content: url("../../img/Trivex.png");
+          }
+        }
+
+        &.scratch-resistant {
+          &:before {
+            left: 31%;
+            content: url("../../img/ScratchProtection.svg");
+          }
+        }
+
+        &.premium-seiko {
+          &:before {
+            content: url("../../img/Premium.png");
+          }
+        }
+      }
+    }
+  }
+}
