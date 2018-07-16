@@ -3,14 +3,6 @@
     text-align: center;
   }
 
-  .descript-title {
-    font-size: 24px;
-    font-weight: 600;
-    line-height: 36px;
-    text-align: center;
-    margin-bottom: 8px;
-  }
-
   .container-right-img,
   .container-left-img {
     position: relative;
@@ -68,4 +60,12 @@
       left: 15px;
     }
   }
+}
+
+.descript-title {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 36px;
+  text-align: center;
+  margin-bottom: 8px;
 }

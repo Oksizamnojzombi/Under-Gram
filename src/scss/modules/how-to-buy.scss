@@ -1,0 +1,110 @@
+.how-to-buy {
+  background: url("../../img/Block_5_CTA.png") no-repeat center;
+  background-size: cover;
+
+  .descript-text {
+    text-align: center;
+    max-width: 731px;
+    margin: 0 auto;
+  }
+}
+
+.interesting-to-know {
+  padding-bottom: 0;
+
+  .flex-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 70px auto 0;
+
+    .flex-content {
+      display: flex;
+      flex-direction: column;
+      width: 45%;
+      min-width: 455px;
+
+      .img-box {
+        position: relative;
+        height: 240px;
+        border-radius: 8px;
+        margin-bottom: 35px;
+
+        .img-absolute {
+          position: absolute;
+          top: -15px;
+          right: 15px;
+        }
+      }
+    }
+  }
+
+  .descript-text {
+    text-align: center;
+    margin: 0 auto;
+  }
+}
+
+.subscribe {
+  .descript-text {
+    text-align: center;
+    margin: 0 auto;
+  }
+}
+
+.form-container {
+  text-align: center;
+  padding-top: 18px;
+  position: relative;
+  width: 426px;
+  margin: 0 auto;
+
+  input {
+    &:hover,
+    &:active,
+    &:focus {
+      outline: none;
+    }
+  }
+
+  input[type=email] {
+    height: 49px;
+    width: 426px;
+    border: 1px solid $main-gold;
+    border-radius: 7px;
+    background: $white;
+    padding: 12px 80px 12px 15px;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 24px;
+
+    &::placeholder {
+      opacity: .3;
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+      border-color: $presed-gold;
+    }
+  }
+
+  input[type=submit] {
+    height: 44px;
+    width: 80px;
+    border-radius: 0 6px 6px 0;
+    background: $main-gold;
+    color: $white;
+    position: absolute;
+    right: 2px;
+    bottom: 3px;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background: $presed-gold;
+      cursor: pointer;
+    }
+  }
+}

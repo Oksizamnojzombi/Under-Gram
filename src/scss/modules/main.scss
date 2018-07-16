@@ -108,27 +108,68 @@ li {
     &:hover,
     &:focus {
       background-color: $main-gold;
-      border-color: $main-gold;
+      color: $white;
+      border-color: $white;
 
       -webkit-box-shadow: inset 0px 0px 0px 3px $main-gold, inset 0px 0px 0px 4px $white;
       -moz-box-shadow: inset 0px 0px 0px 3px $main-gold, inset 0px 0px 0px 4px $white;
       box-shadow: inset 0px 0px 0px 3px $main-gold, inset 0px 0px 0px 4px $white;
     }
 
-    &:focus,
     &:active,
-    &:visited,
     &:not(:disabled):not(.disabled).active:focus,
     &:not(:disabled):not(.disabled):active:focus,
     &:not(:disabled):not(.disabled):active {
       outline: none;
       color: $main-gold;
       background-color: $white;
-      border-color: $white;
+      border-color: $main-gold;
 
       -webkit-box-shadow: inset 0px 0px 0px 3px $white, inset 0px 0px 0px 4px $main-gold;
       -moz-box-shadow: inset 0px 0px 0px 3px $white, inset 0px 0px 0px 4px $main-gold;
       box-shadow: inset 0px 0px 0px 3px $white, inset 0px 0px 0px 4px $main-gold;
+    }
+  }
+
+  &.facebook-color {
+    position: relative;
+    background-color: $facebook-color;
+    border-color: $facebook-color;
+    color: $white;
+    text-transform: none;
+    padding-left: 40px;
+
+    &:hover,
+    &:focus {
+      background-color: $facebook-color;
+      color: $white;
+      border-color: $white;
+
+      -webkit-box-shadow: inset 0px 0px 0px 3px $facebook-color, inset 0px 0px 0px 4px $white;
+      -moz-box-shadow: inset 0px 0px 0px 3px $facebook-color, inset 0px 0px 0px 4px $white;
+      box-shadow: inset 0px 0px 0px 3px $facebook-color, inset 0px 0px 0px 4px $white;
+    }
+
+    &:active,
+    &:not(:disabled):not(.disabled).active:focus,
+    &:not(:disabled):not(.disabled):active:focus,
+    &:not(:disabled):not(.disabled):active {
+      outline: none;
+      color: $white;
+      background-color: $blue;
+      border-color: $white;
+
+      -webkit-box-shadow: inset 0px 0px 0px 3px $blue, inset 0px 0px 0px 4px $white;
+      -moz-box-shadow: inset 0px 0px 0px 3px $blue, inset 0px 0px 0px 4px $white;
+      box-shadow: inset 0px 0px 0px 3px $blue, inset 0px 0px 0px 4px $white;
+    }
+
+    i {
+      position: absolute;
+      left: 17px;
+      top: 10px;
+      color: $white;
+      font-size: 26px;
     }
   }
 }
