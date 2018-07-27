@@ -1,3 +1,21 @@
 .slider-360 {
-  background: $main-bg;
+  background: $white;
+  text-align: center;
+  background: linear-gradient(#fefefe, #fafafa);
+
+  .descript-text {
+    text-align: center;
+    max-width: 731px;
+    margin: 0 auto;
+  }
+
+  table th, table td
+  {
+    padding: 0px;
+  }
+  table img
+  {
+    height: 520px;
+    width: 1120px;
+  }
 }
