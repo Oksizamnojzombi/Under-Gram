@@ -24,25 +24,10 @@
         </div>
     </footer>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script type="text/javascript" src="http://cdn.rawgit.com/matdumsa/jQuery.threesixty/master/jquery.threesixty.js">
-</script>
-<script type="text/javascript">
-$(function () {
-//Load the image URLs into an Array.
-    var arr = new Array();
-    $("#dvImages img").each(function () {
-        arr.push($(this).attr("src"));
-    });
-//Set the first image URL as source for the Product.
-    $("#product1, #product2, #product3").attr("src", arr[0]);
-//Click mode.
-    $("#product1").threesixty({ images: arr,
-        method: 'click',
-        sensibility: 2
-    });
-});
-</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="http://cdn.rawgit.com/matdumsa/jQuery.threesixty/master/jquery.threesixty.js"></script>
+
+    <script src="js/bundle.js"></script>
 </body>
 </html>

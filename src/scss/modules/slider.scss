@@ -9,13 +9,18 @@
     margin: 0 auto;
   }
 
-  table th, table td
-  {
+  table th, table td {
     padding: 0px;
   }
-  table img
-  {
+
+  table img {
     height: 520px;
     width: 1120px;
+  }
+
+  .templates-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 70px auto 20px;
   }
 }

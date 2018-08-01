@@ -1,0 +1,404 @@
+@media screen and (max-width: 1024px){
+  .container-bg {
+    min-height: 50vh;
+    background-size: cover;
+    .text-banner {
+      margin: 5% auto 0;
+    }
+  }
+
+  .middle_banner {
+    .container {
+      padding: 65px 45px;
+    }
+  }
+
+  .slider-360 {
+    table {
+      img {
+        height: 435px;
+        width: 880px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 990px) {
+  .container-bg .text-banner {
+    margin: 14% auto 0;
+    font-size: 44px;
+    line-height: 50px;
+
+    .italy-font {
+      font-size: 50px;
+      line-height: 55px;
+    }
+  }
+
+  .about-us, .advanced-optical, .craftsmaship, .how-to-buy, .interesting-to-know, .slider-360, .subscribe, .white-blocks-section {
+    padding-top: 65px;
+  }
+
+  .container-boxes {
+    min-height: 300px;
+    margin-top: 96px;
+
+    .box-img {
+      left: -115px;
+
+      &.col-md-6 {
+        max-width: 66%;
+      }
+
+      .img-title {
+        font-size: 24px;
+      }
+    }
+
+    .box-description {
+      padding: 48px 25px 43px;
+      right: -118px;
+
+      &.col-md-7 {
+        max-width: 70%;
+      }
+    }
+  }
+
+  .craftsmaship {
+    .img-container {
+
+      .text {
+        font-size: 18px;
+        line-height: 26px;
+      }
+
+      .first-block {
+        top: 10%;
+        left: -16%;
+      }
+    }
+  }
+
+  .craftsmaship .img-container .first-block:after, .craftsmaship .img-container .fourth-block:after, .craftsmaship .img-container .second-block:after, .craftsmaship .img-container .third-block:after {
+    width: 30px;
+    height: 30px;
+  }
+
+  .craftsmaship .img-container .second-block {
+    left: 51%;
+    top: -25%;
+  }
+
+  .craftsmaship .img-container .third-block {
+    right: 27%;
+    top: 34%;
+  }
+
+  .craftsmaship .img-container .fourth-block {
+    bottom: 27%;
+    left: 45%;
+
+    &:before {
+      right: 1%;
+      border-right: none;
+      border-left: 1px dashed hsla(0,0%,100%,.5);
+    }
+
+    &:after {
+      right: 106%;
+    }
+  }
+
+  .middle_banner .container {
+    padding: 45px 0px;
+
+    .big-text {
+      font-size: 30px;
+      line-height: 40px;
+      max-width: 400px;
+    }
+  }
+
+  .advanced-optical {
+    padding-bottom: 150px;
+  }
+
+  .advanced-optical .flex-container .inner-box .descript.trivex:before {
+    left: 22%;
+  }
+
+  .advanced-optical .flex-container .inner-box {
+    min-height: 350px;
+  }
+
+  .white-blocks-section .container-left-img, .white-blocks-section .container-right-img {
+    padding: 84px 25px;
+  }
+
+  .white-blocks-section .container-right-img .img-absolute {
+    right: -77px;
+    width: 67%;
+  }
+
+  .white-blocks-section .container-left-img .img-absolute {
+    left: -85px;
+    width: 67%;
+  }
+
+  .slider-360 table img {
+    height: 355px;
+    width: 700px;
+  }
+
+  .interesting-to-know .flex-container .flex-content {
+    width: 48%;
+    min-width: inherit;
+  }
+
+  .interesting-to-know .flex-container .flex-content .img-box {
+    height: 185px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    max-width: 670px;
+  }
+
+  header .header-menu li {
+    padding: 25px 5px;
+  }
+
+  .box-description {
+    .descript-text {
+      font-size: 18px;
+      line-height: 24px;
+    }
+
+    .descript-title {
+      font-size: 20px;
+      line-height: 26px;
+    }
+  }
+
+  .container-boxes .box-img.col-md-6 {
+    max-width: 55%;
+  }
+
+  .container-boxes .box-description.col-md-7 {
+    max-width: 54%;
+  }
+
+  .container-boxes .box-description {
+    right: -17px;
+  }
+
+  .container-boxes .box-img {
+    left: -18px;
+  }
+
+  .craftsmaship .img-container {
+    margin: 110px auto 30px;
+    width: 85%;
+  }
+
+  .craftsmaship .img-container .first-block, .craftsmaship .img-container .fourth-block, .craftsmaship .img-container .second-block, .craftsmaship .img-container .third-block {
+    display: none;
+  }
+
+  .craftsmaship .img-container .first-block-mobile, .craftsmaship .img-container .fourth-block-mobile, .craftsmaship .img-container .second-block-mobile, .craftsmaship .img-container .third-block-mobile {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .container-bg .text-banner {
+    margin: 13% auto 0;
+    font-size: 40px;
+    line-height: 44px;
+    padding-left: 7%;
+  }
+
+  .column {
+    -webkit-column-count: 1;
+    -moz-column-count: 1;
+    column-count: 1;
+    -webkit-column-gap: 50px;
+    -moz-column-gap: 50px;
+    column-gap: 50px;
+  }
+
+  .container-boxes {
+    min-height: 550px;
+    margin-top: 35px;
+
+    .box-img.col-md-6 {
+      max-width: 100%;
+    }
+
+    .box-description.col-md-7 {
+      max-width: 88%;
+    }
+
+    .box-img {
+      left: -15px;
+    }
+
+    .box-description {
+      right: -10px;
+
+      .descript-title:after {
+        top: -23px;
+      }
+    }
+  }
+
+  .craftsmaship .img-container .first-block-mobile .text, .craftsmaship .img-container .fourth-block-mobile .text, .craftsmaship .img-container .second-block-mobile .text, .craftsmaship .img-container .third-block-mobile .text {
+    width: 70%;
+  }
+
+  .middle_banner .container {
+    padding: 20px 15px;
+  }
+
+  .advanced-optical .flex-container .inner-box .descript.trivex:before {
+    left: 17%;
+  }
+
+  .white-blocks-section .container-right-img .img-absolute {
+    right: -6px;
+    width: 50%;
+  }
+
+  .white-blocks-section .container-left-img .img-absolute {
+    left: -6px;
+    width: 50%;
+  }
+
+  .white-blocks-section .container-left-img, .white-blocks-section .container-right-img {
+    margin: 45px auto;
+  }
+
+  .slider-360 table img {
+    height: 305px;
+    width: 500px;
+  }
+
+  .interesting-to-know .flex-container .flex-content {
+    width: 90%;
+    margin: 0 auto;
+
+    .img-box {
+      height: inherit;
+    }
+
+    .text-box {
+      margin-bottom: 40px;
+    }
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .craftsmaship .img-container .first-block-mobile:after, .craftsmaship .img-container .fourth-block-mobile:after, .craftsmaship .img-container .second-block-mobile:after, .craftsmaship .img-container .third-block-mobile:after {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    background-color: rgba(67,82,121,1);
+  }
+
+  .craftsmaship .img-container .first-block-mobile:after {
+    bottom: 181px;
+    left: 39px;
+  }
+
+  .craftsmaship .img-container .second-block-mobile:after {
+    bottom: 304px;
+  }
+
+  .craftsmaship .img-container .third-block-mobile:after {
+    bottom: 320px;
+  }
+
+  .craftsmaship .img-container .fourth-block-mobile:after {
+    bottom: 208px;
+  }
+
+  .advanced-optical .flex-container .inner-box .descript {
+    position: relative;
+    width: 100%;
+    padding-top: 88px;
+  }
+
+  .advanced-optical .flex-container .inner-box .descript.trivex:before {
+    left: 11%;
+  }
+
+  .advanced-optical {
+    .flex-container {
+      .descript {
+        font-size: 14px;
+        line-height: 22px;
+      }
+    }
+  }
+
+  .advanced-optical .flex-container .inner-box .inner-cell.to-left {
+    align-self: center;
+  }
+
+  .advanced-optical .flex-container .inner-box .inner-cell.to-right {
+    align-self: center;
+  }
+
+  .advanced-optical .flex-container .inner-box {
+    .first,
+    .third {
+      padding: 0 5px;
+    }
+  }
+
+  .advanced-optical {
+    background-color: #0d1426;
+    background-image: url(../../img/Bitmap.png);
+    background-position: 50% 90px;
+    background-repeat: no-repeat;
+  }
+
+  .white-blocks-section .box-text {
+    width: 100%;
+  }
+
+  .white-blocks-section .container-right-img .img-absolute {
+    right: 15%;
+    width: 67%;
+  }
+
+  .white-blocks-section .container-left-img, .white-blocks-section .container-right-img {
+    margin: 175px auto;
+  }
+
+  .white-blocks-section .container-left-img .img-absolute {
+    left: 16%;
+    width: 67%;
+  }
+
+  .white-blocks-section .img-absolute {
+    top: -141px;
+  }
+
+  .white-blocks-section .container-left-img, .white-blocks-section .container-right-img {
+    padding: 100px 25px 35px;
+  }
+
+  .slider-360 table img {
+    height: 270px;
+    width: 425px;
+  }
+}
+
+@media screen and (max-width: 435px) {
+  .header-menu {
+  padding: 0;
+  }
+}

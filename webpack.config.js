@@ -26,7 +26,7 @@ module.exports = {
         './src/scss/styles.scss'
     ],
     output: {
-        filename: './js/bundle.js'
+        filename: './src/js/bundle.js'
     },
     devtool: "source-map",
     module: {
@@ -37,7 +37,9 @@ module.exports = {
                 loader: 'babel-loader',
                 options: {
                     presets: [
-                        ['@babel/preset-env', { modules: false }],
+                        ['@babel/preset-env', {
+                            modules: false
+                        }],
                     ],
                     plugins: ['@babel/plugin-proposal-class-properties'],
                 }

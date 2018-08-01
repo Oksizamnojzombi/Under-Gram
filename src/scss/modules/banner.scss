@@ -1,7 +1,11 @@
 .container-bg {
-  min-height: 930px;
+  min-height: 765px;
   width: 100%;
   background: linear-gradient(to bottom, #DDE6ED, #B2BDC8);
+  background-image: url("../../img/FirstBlock.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
 
   .text-banner {
     color: #737b89;
