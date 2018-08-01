@@ -1,5 +1,5 @@
 const path = require('path');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const fs = require('fs')
@@ -8,14 +8,14 @@ function generateHtmlPlugins(templateDir) {
     const templateFiles = fs.readdirSync(path.resolve(__dirname, templateDir));
     return templateFiles.map(item => {
         const parts = item.split('.');
-    const name = parts[0];
-    const extension = parts[1];
-    return new HtmlWebpackPlugin({
-        filename: `${name}.html`,
-        template: path.resolve(__dirname, `${templateDir}/${name}.${extension}`),
-        inject: false,
+        const name = parts[0];
+        const extension = parts[1];
+        return new HtmlWebpackPlugin({
+            filename: `${name}.html`,
+            template: path.resolve(__dirname, `${templateDir}/${name}.${extension}`),
+            inject: false,
+        })
     })
-})
 }
 
 const htmlPlugins = generateHtmlPlugins('./src/html/views');
@@ -26,7 +26,7 @@ module.exports = {
         './src/scss/styles.scss'
     ],
     output: {
-        filename: './src/js/bundle.js'
+        filename: './js/bundle.js'
     },
     devtool: "source-map",
     module: {
@@ -48,23 +48,40 @@ module.exports = {
             {
                 test: /\.(sass|scss)$/,
                 include: path.resolve(__dirname, 'src/scss'),
-                use: ExtractTextPlugin.extract({
-                    use: [{
+                use: [{
+                    loader: MiniCssExtractPlugin.loader,
+                    options: {}
+                },
+                    {
                         loader: "css-loader",
                         options: {
                             sourceMap: true,
-                            minimize: true,
                             url: false
                         }
                     },
-                        {
-                            loader: "sass-loader",
-                            options: {
-                                sourceMap: true
-                            }
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            ident: 'postcss',
+                            sourceMap: true,
+                            plugins: () => [
+                                require('cssnano')({
+                                    preset: ['default', {
+                                        discardComments: {
+                                            removeAll: true,
+                                        },
+                                    }]
+                                })
+                            ]
                         }
-                    ]
-                })
+                    },
+                    {
+                        loader: "sass-loader",
+                        options: {
+                            sourceMap: true
+                        }
+                    }
+                ]
             },
             {
                 test: /\.html$/,
@@ -74,9 +91,8 @@ module.exports = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin({
-            filename: './css/style.bundle.css',
-            allChunks: true,
+        new MiniCssExtractPlugin({
+            filename: "./css/style.bundle.css"
         }),
         new CopyWebpackPlugin([{
             from: './src/fonts',
