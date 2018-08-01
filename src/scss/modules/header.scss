@@ -1,6 +1,19 @@
 header {
   background: $main-bg;
 
+  .navbar-light .navbar-brand {
+    color: $white;
+  }
+
+  .navbar-expand-lg {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .navbar-collapse {
+    flex-grow: inherit;
+  }
+
   .header-menu {
     display: flex;
     justify-content: space-between;
