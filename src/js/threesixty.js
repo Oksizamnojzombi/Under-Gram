@@ -1,890 +1,354 @@
-/*!
- * 360 degree Image Slider v2.0.4
- * http://gaurav.jassal.me
- *
- * Copyright 2015, gaurav@jassal.me
- * Dual licensed under the MIT or GPL Version 3 licenses.
- *
- */
-(function($) {
-    'use strict';
-    /**
-     * @class ThreeSixty
-     * **The ThreeSixty slider class**.
-     *
-     * This as jQuery plugin to create 360 degree product image slider.
-     * The plugin is full customizable with number of options provided. The plugin
-     * have the power to display img in any angle 360 degrees. This feature can be
-     * used successfully in many use cases e.g. on an e-commerce site to help customers
-     * look products in detail, from any angle they desire.
-     *
-     * **Features**
-     *
-     * - Smooth Animation
-     * - Plenty of option parameters for customization
-     * - Api interaction
-     * - Simple mouse interaction
-     * - Custom behavior tweaking
-     * - Support for touch devices
-     * - Easy to integrate
-     * - No flash
-     *
-     * Example code:
-     *      var product1 = $('.product1').ThreeSixty({
-   *        totalFrames: 72,
-   *        endFrame: 72,
-   *        currentFrame: 1,
-   *        imgList: '.threesixty_images',
-   *        progress: '.spinner',
-   *        imagePath:'/assets/product1/',
-   *        filePrefix: 'ipod-',
-   *        ext: '.jpg',
-   *        height: 265,
-   *        width: 400,
-   *        navigation: true
-   *      });
-     * **Note:** There are loads other options that you can override to customize
-     * this plugin.
-     * @extends jQuery
-     * @singleton
-     * @param {String} [el] jQuery selector string for the parent container
-     * @param {Object} [options] An optional config object
-     *
-     * @return this
-     */
-    $.ThreeSixty = function(el, options) {
-        // To avoid scope issues, use 'base' instead of 'this'
-        // to reference this class from internal events and functions.
-        var base = this,
-            AppConfig, frames = [],
-            VERSION = '2.0.5';
-        // Access to jQuery and DOM versions of element
-        /**
-         * @property {$el}
-         * jQuery Dom node attached to the slider inherits all jQuery public functions.
-         */
-        base.$el = $(el);
-        base.el = el;
-        // Add a reverse reference to the DOM object
-        base.$el.data('ThreeSixty', base);
-        /**
-         * @method init
-         * The function extends the user options with default settings for the
-         * slider and initilize the slider.
-         * **Style Override example**
-         *
-         *      var product1 = $('.product1').ThreeSixty({
-     *        totalFrames: 72,
-     *        endFrame: 72,
-     *        currentFrame: 1,
-     *        imgList: '.threesixty_images',
-     *        progress: '.spinner',
-     *        imagePath:'/assets/product1/',
-     *        filePrefix: 'ipod-',
-     *        ext: '.jpg',
-     *        height: 265,
-     *        width: 400,
-     *        navigation: true,
-     *        styles: {
-     *          border: 2px solide #b4b4b4,
-     *          background: url(http://example.com/images/loader.gif) no-repeat
-     *        }
-     *      });
-         */
-        base.init = function() {
-            AppConfig = $.extend({}, $.ThreeSixty.defaultOptions, options);
-            if(AppConfig.disableSpin) {
-                AppConfig.currentFrame = 1;
-                AppConfig.endFrame = 1;
-            }
-            base.initProgress();
-            base.loadImages();
-        };
-
-        /*
-         * Function to resize the height of responsive slider.
-         */
-        base.resize = function() {
-            // calculate height
-        };
-        /**
-         * @method initProgress
-         * The function sets initial styles and start the progress indicator
-         * to show loading of img.
-         *
-         * @private
-         */
-        base.initProgress = function() {
-            base.$el.css({
-                width: AppConfig.width + 'px',
-                height: AppConfig.height + 'px',
-                'background-image': 'none !important'
-            });
-            if(AppConfig.styles) {
-                base.$el.css(AppConfig.styles);
-            }
-
-            base.responsive();
-
-            base.$el.find(AppConfig.progress).css({
-                marginTop: ((AppConfig.height / 2) - 15) + 'px'
-            });
-            base.$el.find(AppConfig.progress).fadeIn('slow');
-            base.$el.find(AppConfig.imgList).hide();
-        };
-
-        /**
-         * @method loadImages
-         * @private
-         * The function asynchronously loads img and inject into the slider.
-         */
-        base.loadImages = function() {
-            var li, imageName, image, host, baseIndex;
-            li = document.createElement('li');
-            baseIndex = AppConfig.zeroBased ? 0 : 1;
-            imageName = !AppConfig.imgArray ?
-                AppConfig.domain + AppConfig.imagePath + AppConfig.filePrefix + base.zeroPad((AppConfig.loadedImages + baseIndex)) + AppConfig.ext + ((base.browser.isIE()) ? '?' + new Date().getTime() : '') :
-                AppConfig.imgArray[AppConfig.loadedImages];
-            image = $('<img>').attr('src', imageName).addClass('previous-image').appendTo(li);
-
-            frames.push(image);
-
-            base.$el.find(AppConfig.imgList).append(li);
-
-            $(image).on('load', function () {
-                base.imageLoaded();
-            });
-        };
-
-        /**
-         * @method loadImages
-         * @private
-         * The function gets triggers once the image is loaded. We also update
-         * the progress percentage in this function.
-         */
-        base.imageLoaded = function () {
-            AppConfig.loadedImages += 1;
-            $(AppConfig.progress + ' span').text(Math.floor(AppConfig.loadedImages / AppConfig.totalFrames * 100) + '%');
-            if (AppConfig.loadedImages >= AppConfig.totalFrames) {
-                if(AppConfig.disableSpin) {
-                    frames[0].removeClass('previous-image').addClass('current-image');
-                }
-                $(AppConfig.progress).fadeOut('slow', function () {
-                    $(this).hide();
-                    base.showImages();
-                    base.showNavigation();
-                });
-            } else {
-                base.loadImages();
-            }
-        };
-
-        /**
-         * @method loadImages
-         * @private
-         * This function is called when all the img are loaded.
-         * **The function does following operations**
-         * - Removes background image placeholder
-         * - Displays the 360 img
-         * - Initilizes mouse intraction events
-         */
-        base.showImages = function () {
-            base.$el.find('.txtC').fadeIn();
-            base.$el.find(AppConfig.imgList).fadeIn();
-            base.ready = true;
-            AppConfig.ready = true;
-
-            if (AppConfig.drag) {
-                base.initEvents();
-            }
-            base.refresh();
-            base.initPlugins();
-            AppConfig.onReady();
-
-            setTimeout(function() { base.responsive(); }, 50);
-        };
-
-        /**
-         * The function to initilize external plugin
-         */
-        base.initPlugins = function () {
-            $.each(AppConfig.plugins, function(i, plugin) {
-                if(typeof $[plugin] === 'function') {
-                    $[plugin].call(base, base.$el, AppConfig);
-                } else {
-                    throw new Error(plugin + ' not available.');
-                }
-            });
-        };
-
-        /**
-         * @method showNavigation
-         * Creates a navigation panel if navigation is set to true in the
-         * settings.
-         */
-        base.showNavigation = function() {
-            if (AppConfig.navigation && !AppConfig.navigation_init) {
-                var nav_bar, next, previous, play_stop;
-
-                nav_bar = $('<div/>').attr('class', 'nav_bar');
-
-                next = $('<a/>').attr({
-                    'href': '#',
-                    'class': 'nav_bar_next'
-                }).html('next');
-
-                previous = $('<a/>').attr({
-                    'href': '#',
-                    'class': 'nav_bar_previous'
-                }).html('previous');
-
-                play_stop = $('<a/>').attr({
-                    'href': '#',
-                    'class': 'nav_bar_play'
-                }).html('play');
-
-                nav_bar.append(previous);
-                nav_bar.append(play_stop);
-                nav_bar.append(next);
-
-                base.$el.prepend(nav_bar);
-
-                next.bind('mousedown touchstart', base.next);
-                previous.bind('mousedown touchstart', base.previous);
-                play_stop.bind('mousedown touchstart', base.play_stop);
-                AppConfig.navigation_init = true;
-            }
-        };
-
-        /**
-         * @method play_stop
-         * @private
-         * Function toggles the autoplay rotation of 360 slider
-         * @param {Object} [event] jQuery events object.
-         *
-         */
-
-        base.play_stop = function(event) {
-            event.preventDefault();
-
-            if (!AppConfig.autoplay) {
-                AppConfig.autoplay = true;
-                AppConfig.play = setInterval(base.moveToNextFrame, AppConfig.playSpeed);
-                $(event.currentTarget).removeClass('nav_bar_play').addClass('nav_bar_stop');
-            } else {
-                AppConfig.autoplay = false;
-                $(event.currentTarget).removeClass('nav_bar_stop').addClass('nav_bar_play');
-                clearInterval(AppConfig.play);
-                AppConfig.play = null;
-            }
-        };
-
-        /**
-         * @method next
-         * Using this function you can rotate 360 to next 5 frames.
-         * @param {Object} [event] jQuery events object.
-         *
-         */
-
-        base.next = function(event) {
-            if (event) { event.preventDefault(); }
-            AppConfig.endFrame -= 5;
-            base.refresh();
-        };
-
-        /**
-         * @method previous
-         * Using this function you can rotate 360 to previous 5 frames.
-         * @param {Object} [event] jQuery events object.
-         *
-         */
-        base.previous = function(event) {
-            if (event) { event.preventDefault(); }
-            AppConfig.endFrame += 5;
-            base.refresh();
-        };
-
-        /**
-         * @method play
-         * You are start the auto rotaion for the slider with this function.
-         *
-         */
-        base.play = function(speed, direction) {
-            var _speed = speed || AppConfig.playSpeed;
-            var _direction = direction || AppConfig.autoplayDirection;
-            AppConfig.autoplayDirection = _direction
-
-            if (!AppConfig.autoplay) {
-                AppConfig.autoplay = true;
-                AppConfig.play = setInterval(base.moveToNextFrame, _speed);
-            }
-        };
-
-        /**
-         * @method stop
-         * You can stop the auto rotation of the 360 slider with this function.
-         *
-         */
-
-        base.stop = function() {
-            if (AppConfig.autoplay) {
-                AppConfig.autoplay = false;
-                clearInterval(AppConfig.play);
-                AppConfig.play = null;
-            }
-        };
-
-        /**
-         * @method endFrame
-         * @private
-         * Function animates to previous frame
-         *
-         */
-        base.moveToNextFrame = function () {
-            if (AppConfig.autoplayDirection === 1) {
-                AppConfig.endFrame -= 1;
-            } else {
-                AppConfig.endFrame += 1;
-            }
-            base.refresh();
-        };
-
-        /**
-         * @method gotoAndPlay
-         * @public
-         * Function animates to previous frame
-         *
-         */
-        base.gotoAndPlay = function (n) {
-            if( AppConfig.disableWrap ) {
-                AppConfig.endFrame = n;
-                base.refresh();
-            } else {
-                // Since we could be looped around grab the multiplier
-                var multiplier = Math.ceil(AppConfig.endFrame / AppConfig.totalFrames);
-                if(multiplier === 0) {
-                    multiplier = 1;
-                }
-
-                // Figure out the quickest path to the requested frame
-                var realEndFrame = (multiplier > 1) ?
-                    AppConfig.endFrame - ((multiplier - 1) * AppConfig.totalFrames) :
-                    AppConfig.endFrame;
-
-                var currentFromEnd = AppConfig.totalFrames - realEndFrame;
-
-                // Jump past end if it's faster
-                var newEndFrame = 0;
-                if(n - realEndFrame > 0) {
-                    // Faster to move the difference ahead?
-                    if(n - realEndFrame < realEndFrame + (AppConfig.totalFrames - n)) {
-                        newEndFrame = AppConfig.endFrame + (n - realEndFrame);
-                    } else {
-                        newEndFrame = AppConfig.endFrame - (realEndFrame + (AppConfig.totalFrames - n));
-                    }
-                } else {
-                    // Faster to move the distance back?
-                    if(realEndFrame - n < currentFromEnd + n) {
-                        newEndFrame = AppConfig.endFrame - (realEndFrame - n);
-                    } else {
-                        newEndFrame = AppConfig.endFrame + (currentFromEnd + n);
-                    }
-                }
-
-                // Now set the end frame
-                if(realEndFrame !== n) {
-                    AppConfig.endFrame = newEndFrame;
-                    base.refresh();
-                }
-            }
-        };
-
-
-        /**
-         * @method initEvents
-         * @private
-         * Function initilizes all the mouse and touch events for 360 slider movement.
-         *
-         */
-        base.initEvents = function () {
-            base.$el.bind('mousedown touchstart touchmove touchend mousemove click', function (event) {
-
-                event.preventDefault();
-
-                if ((event.type === 'mousedown' && event.which === 1) || event.type === 'touchstart') {
-                    AppConfig.pointerStartPosX = base.getPointerEvent(event).pageX;
-                    AppConfig.dragging = true;
-                    AppConfig.onDragStart(AppConfig.currentFrame);
-                } else if (event.type === 'touchmove') {
-                    base.trackPointer(event);
-                } else if (event.type === 'touchend') {
-                    AppConfig.dragging = false;
-                    AppConfig.onDragStop(AppConfig.endFrame);
-                }
-            });
-
-            $(document).bind('mouseup', function (event) {
-                AppConfig.dragging = false;
-                AppConfig.onDragStop(AppConfig.endFrame);
-                $(this).css('cursor', 'none');
-            });
-
-            $(window).bind('resize', function (event) {
-                base.responsive();
-            });
-
-            $(document).bind('mousemove', function (event) {
-                if (AppConfig.dragging) {
-                    event.preventDefault();
-                    if(!base.browser.isIE && AppConfig.showCursor) {
-                        base.$el.css('cursor', 'url(assets/img/hand_closed.png), auto');
-                    }
-                } else {
-                    if(!base.browser.isIE && AppConfig.showCursor) {
-                        base.$el.css('cursor', 'url(assets/img/hand_open.png), auto');
-                    }
-                }
-                base.trackPointer(event);
-
-            });
-
-            $(window).resize(function() {
-                base.resize();
-            });
-        };
-
-        /**
-         * @method getPointerEvent
-         * @private
-         * Function returns touch pointer events
-         *
-         * @params {Object} [event]
-         */
-        base.getPointerEvent = function (event) {
-            return event.originalEvent.targetTouches ? event.originalEvent.targetTouches[0] : event;
-        };
-
-        /**
-         * @method trackPointer
-         * @private
-         * Function calculates the distance between the start pointer and end pointer/
-         *
-         * @params {Object} [event]
-         */
-        base.trackPointer = function (event) {
-            if (AppConfig.ready && AppConfig.dragging) {
-                AppConfig.pointerEndPosX = base.getPointerEvent(event).pageX;
-                if (AppConfig.monitorStartTime < new Date().getTime() - AppConfig.monitorInt) {
-                    AppConfig.pointerDistance = AppConfig.pointerEndPosX - AppConfig.pointerStartPosX;
-                    if(AppConfig.pointerDistance > 0){
-                        AppConfig.endFrame = AppConfig.currentFrame + Math.ceil((AppConfig.totalFrames - 1) * AppConfig.speedMultiplier * (AppConfig.pointerDistance / base.$el.width()));
-                    }else{
-                        AppConfig.endFrame = AppConfig.currentFrame + Math.floor((AppConfig.totalFrames - 1) * AppConfig.speedMultiplier * (AppConfig.pointerDistance / base.$el.width()));
-                    }
-
-                    if( AppConfig.disableWrap ) {
-                        AppConfig.endFrame = Math.min(AppConfig.totalFrames - (AppConfig.zeroBased ? 1 : 0), AppConfig.endFrame);
-                        AppConfig.endFrame = Math.max((AppConfig.zeroBased ? 0 : 1), AppConfig.endFrame);
-                    }
-                    base.refresh();
-                    AppConfig.monitorStartTime = new Date().getTime();
-                    AppConfig.pointerStartPosX = base.getPointerEvent(event).pageX;
-                }
-            }
-        };
-
-        /**
-         * @method refresh
-         * @public
-         * Function refeshes the timer and set interval for render cycle.
-         *
-         */
-
-        base.refresh = function () {
-            if (AppConfig.ticker === 0) {
-                AppConfig.ticker = setInterval(base.render, Math.round(1000 / AppConfig.framerate));
-            }
-        };
-
-        /**
-         * @method refresh
-         * @private
-         * Function render the animation frames on the screen with easing effect.
-         */
-
-        base.render = function () {
-            var frameEasing;
-            if (AppConfig.currentFrame !== AppConfig.endFrame) {
-                frameEasing = AppConfig.endFrame < AppConfig.currentFrame ? Math.floor((AppConfig.endFrame - AppConfig.currentFrame) * 0.1) : Math.ceil((AppConfig.endFrame - AppConfig.currentFrame) * 0.1);
-                base.hidePreviousFrame();
-                AppConfig.currentFrame += frameEasing;
-                base.showCurrentFrame();
-                base.$el.trigger('frameIndexChanged', [base.getNormalizedCurrentFrame(), AppConfig.totalFrames]);
-            } else {
-                window.clearInterval(AppConfig.ticker);
-                AppConfig.ticker = 0;
-            }
-        };
-
-        /**
-         * @method hidePreviousFrame
-         * @private
-         * Function hide the previous frame in the animation loop.
-         */
-
-        base.hidePreviousFrame = function () {
-            frames[base.getNormalizedCurrentFrame()].removeClass('current-image').addClass('previous-image');
-        };
-
-        /**
-         * @method showCurrentFrame
-         * @private
-         * Function shows the current frame in the animation loop.
-         */
-        base.showCurrentFrame = function () {
-            frames[base.getNormalizedCurrentFrame()].removeClass('previous-image').addClass('current-image');
-        };
-
-        /**
-         * @method getNormalizedCurrentFrame
-         * @private
-         * Function normalize and calculate the current frame once the user release the mouse and release touch event.
-         */
-
-        base.getNormalizedCurrentFrame = function () {
-            var c, e;
-
-            if ( !AppConfig.disableWrap ) {
-                c = Math.ceil(AppConfig.currentFrame % AppConfig.totalFrames);
-                if (c < 0) {
-                    c += AppConfig.totalFrames - (AppConfig.zeroBased ? 1 : 0);
-                }
-            } else {
-                c = Math.min(AppConfig.currentFrame, AppConfig.totalFrames - (AppConfig.zeroBased ? 1 : 0));
-                e = Math.min(AppConfig.endFrame, AppConfig.totalFrames - (AppConfig.zeroBased ? 1 : 0));
-                c = Math.max(c, (AppConfig.zeroBased ? 0 : 1));
-                e = Math.max(e, (AppConfig.zeroBased ? 0 : 1));
-                AppConfig.currentFrame = c;
-                AppConfig.endFrame = e;
-            }
-
-            return c;
-        };
-
-        /*
-         * @method getCurrentFrame
-         * Function returns the current active frame.
-         *
-         * @return Number
-         */
-
-        base.getCurrentFrame = function() {
-            return AppConfig.currentFrame;
-        };
-
-        /*
-        * @method responsive
-        * Function calculates and set responsive height and width
-        *
-        */
-
-        base.responsive = function() {
-            if(AppConfig.responsive) {
-                base.$el.css({
-                    height: base.$el.find('.current-image').first().css('height'),
-                    width: '100%'
-                });
-            }
-        };
-
-        /**
-         * Function to return with zero padding.
-         */
-        base.zeroPad = function (num) {
-            function pad(number, length) {
-                var str = number.toString();
-                if(AppConfig.zeroPadding) {
-                    while (str.length < length) {
-                        str = '0' + str;
-                    }
-                }
-                return str;
-            }
-
-            var approximateLog = Math.log(AppConfig.totalFrames) / Math.LN10;
-            var roundTo = 1e3;
-            var roundedLog = Math.round(approximateLog * roundTo) / roundTo;
-            var numChars = Math.floor(roundedLog) + 1;
-            return pad(num, numChars);
-        };
-
-        base.browser = {};
-
-        /**
-         * Function to detect if the brower is IE
-         * @return {boolean}
-         *
-         * http://msdn.microsoft.com/en-gb/library/ms537509(v=vs.85).aspx
-         */
-        base.browser.isIE = function () {
-            var rv = -1;
-            if (navigator.appName === 'Microsoft Internet Explorer')
-            {
-                var ua = navigator.userAgent;
-                var re  = new RegExp('MSIE ([0-9]{1,}[\\.0-9]{0,})');
-                if (re.exec(ua) !== null){
-                    rv = parseFloat( RegExp.$1 );
-                }
-            }
-
-            return rv !== -1;
-        };
-
-
-        /**
-         * @method getConfig
-         * The function returns the extended version of config object the plugin is going to
-         * user.
-         *
-         * @public
-         *
-         * @return Object
-         */
-        base.getConfig = function() {
-            return AppConfig;
-        };
-
-        $.ThreeSixty.defaultOptions = {
-            /**
-             * @cfg {Boolean} dragging [dragging=false]
-             * @private
-             * Private propery contains a flags if users is in dragging mode.
-             */
-            dragging: false,
-            /**
-             * @cfg {Boolean} ready [ready=false]
-             * @private
-             * Private propery is set to true is all assets are loading and application is
-             * ready to render 360 slider.
-             */
-            ready: false,
-            /**
-             * @cfg {Number} pointerStartPosX
-             * @private
-             * private property mouse pointer start x position when user starts dragging slider.
-             */
-            pointerStartPosX: 0,
-            /**
-             * @cfg {Number} pointerEndPosX
-             * @private
-             * private property mouse pointer start x position when user end dragging slider.
-             */
-            pointerEndPosX: 0,
-            /**
-             * @cfg {Number} pointerDistance
-             * @private
-             * private property contains the distance between the pointerStartPosX and pointerEndPosX
-             */
-            pointerDistance: 0,
-            /**
-             * @cfg {Number} monitorStartTime
-             * @private
-             * private property contains time user took in dragging mouse from pointerStartPosX and pointerEndPosX
-             */
-            monitorStartTime: 0,
-            monitorInt: 10,
-            /**
-             * @cfg {Number} ticker
-             * @private
-             * Timer event that renders the 360
-             */
-            ticker: 0,
-            /**
-             * @cfg {Number} speedMultiplier
-             * This property controls the sensitivity for the 360 slider
-             */
-            speedMultiplier: 7,
-            /**
-             * @cfg {Number} totalFrames
-             * Set total number for frames used in the 360 rotation
-             */
-            totalFrames: 180,
-            /**
-             * @cfg {Number} currentFrame
-             * Current frame of the slider.
-             */
-            currentFrame: 0,
-            /**
-             * @cfg {Array} endFrame
-             * Private perperty contains information about the end frame when user slides the slider.
-             */
-            endFrame: 0,
-            /**
-             * @cfg {Number} loadedImages
-             * Private property contains count of loaded img.
-             */
-            loadedImages: 0,
-            /**
-             * @cfg {Array} framerate
-             * Set framerate for the slider animation
-             */
-            framerate: 60,
-            /**
-             * @cfg {String} domains
-             * Set comma seprated list of all parallel domain from where 360 assets needs to be loaded.
-             */
-            domains: null,
-            /**
-             * @cfg {String} domain
-             * Domain from where assets needs to be loaded. Use this propery is you want to load all assets from
-             * single domain.
-             */
-            domain: '',
-            /**
-             * @cfg {Boolean} parallel
-             * Set to true if you want to load assets from parallel domain. Default false
-             */
-            parallel: false,
-            /**
-             * @cfg {Number} queueAmount
-             * Set number of calls to be made on parallel domains.
-             */
-            queueAmount: 8,
-            /**
-             * @cfg {Number} idle
-             * Mouse Inactivite idle time in seconds. If set more than 0 will auto spine the slider
-             */
-            idle: 0,
-            /**
-             * @cfg {String} filePrefix
-             * Prefix for the image file name before the numeric value.
-             */
-            filePrefix: '',
-            /**
-             * @cfg {String} ext [ext=.png]
-             * Slider image extension.
-             */
-            ext: 'png',
-            /**
-             * @cfg {Object} height [300]
-             * Height of the slider
-             */
-            height: 300,
-            /**
-             * @cfg {Number} width [300]
-             * Width of the slider
-             */
-            width: 300,
-            /**
-             * @cfg {Object} styles
-             * CSS Styles for the 360 slider
-             */
-            styles: {},
-            /**
-             * @cfg {Boolean} navigation[false]
-             * State if navigation controls are visible or not.
-             */
-            navigation: false,
-            /**
-             * @cfg {Boolean} autoplay[false]
-             * Autoplay the 360 animation
-             */
-            autoplay: false,
-            /**
-             * @cfg {number} autoplayDirection [1]
-             * Direction for autoplay the 360 animation. 1 for right spin, and -1 for left spin.
-             */
-            autoplayDirection: 1,
-            /**
-             * Property to disable auto spin
-             * @type {Boolean}
-             */
-            disableSpin: false,
-            /**
-             * Property to disable infinite wrap
-             * @type {Boolean}
-             */
-            disableWrap: false,
-            /**
-             * Responsive width
-             * @type {Boolean}
-             */
-            responsive: false,
-            /**
-             * Zero Padding for filenames
-             * @type {Boolean}
-             */
-            zeroPadding: false,
-            /**
-             * Zero based for image filenames starting at 0
-             * @type {Boolean}
-             */
-            zeroBased: false,
-            /**
-             * @type {Array}
-             * List of plugins
-             */
-            plugins: [],
-            /**
-             * @type {Boolean}
-             * Show hand cursor on drag
-             */
-            showCursor: false,
-            /**
-             * @cfg {Boolean} drag
-             * Set it to false if you want to disable mousedrag or touch events
-             */
-            drag: true,
-            /**
-             * @cfg {Function} onReady
-             * Callback triggers once all img are loaded and ready to render on the screen
-             */
-            onReady: function() {},
-            /**
-             * @cfg {Function} onDragStart
-             * Callback triggers when a user initiates dragging
-             */
-            onDragStart: function() {},
-            /**
-             * @cfg {Function} onDragStop
-             * Callback triggers when a user releases after dragging
-             */
-            onDragStop: function() {},
-            /**
-             * @cfg {String} imgList
-             * Set ul element where image will be loaded
-             */
-            imgList: '.threesixty_images',
-            /**
-             * @cfg {Array} imgArray
-             * Use set of img in array to load img
-             */
-            imgArray: null,
-            /**
-             * @cfg {Number} playSpeed
-             * Value to control the speed of play button rotation
-             */
-            playSpeed: 100
-        };
-        base.init();
-    };
-
-    $.fn.ThreeSixty = function(options) {
-        return Object.create(new $.ThreeSixty(this, options));
-    };
-
-}(jQuery));
 /**
- *
- * Object.create method for perform as a fallback if method not available.
- * The syntax just takes away the illusion that JavaScript uses Classical Inheritance.
+ * We wrap all our code in the jQuery "DOM-ready" function to make sure the script runs only
+ * after all the DOM elements are rendered and ready to take action
  */
-if(typeof Object.create !== 'function') {
-    Object.create = function(o) {
-        'use strict';
+$(document).ready(function () {
+    // Tells if the app is ready for user interaction
+    var ready = false,
+        // Tells the app if the user is dragging the pointer
+        dragging = false,
+        // Stores the pointer starting X position for the pointer tracking
+        pointerStartPosX = 0,
+        // Stores the pointer ending X position for the pointer tracking
+        pointerEndPosX = 0,
+        // Stores the distance between the starting and ending pointer X position in each time period we are tracking the pointer
+        pointerDistance = 0,
 
-        function F() {}
-        F.prototype = o;
-        return new F();
+        // The starting time of the pointer tracking period
+        monitorStartTime = 0,
+        // The pointer tracking time duration
+        monitorInt = 10,
+        // A setInterval instance used to call the rendering function
+        ticker = 0,
+        // Sets the speed of the image sliding animation
+        speedMultiplier = 10,
+        // CanvasLoader instance variable
+        spinner,
+
+        // Stores the total amount of images we have in the sequence
+        totalFrames = 180,
+        // The current frame value of the image slider animation
+        currentFrame = 0,
+        // Stores all the loaded image objects
+        frames = [],
+        // The value of the end frame which the currentFrame will be tweened to during the sliding animation
+        endFrame = 0,
+        // We keep track of the loaded images by increasing every time a new image is added to the image slider
+        loadedImages = 0,
+
+        // Caching DOM element references
+        $document = $(document),
+        $container = $('#threesixty'),
+        $images = $('#threesixty_images'),
+
+        // Initial spin demo vars
+        demoMode = false,
+        fakePointer = {
+            x: 0,
+            speed: 4
+        },
+        fakePointerTimer = 0;
+
+    /**
+     * Adds a "spiral" shaped CanvasLoader instance to the #spinner div
+     */
+    function addSpinner () {
+        spinner = new CanvasLoader("spinner");
+        spinner.setShape("spiral");
+        spinner.setDiameter(90);
+        spinner.setDensity(90);
+        spinner.setRange(1);
+        spinner.setSpeed(4);
+        spinner.setColor("#333333");
+        // As its hidden and not rendering by default we have to call its show() method
+        spinner.show();
+        // We use the jQuery fadeIn method to slowly fade in the preloader
+        $("#spinner").fadeIn("slow");
     };
-}
+
+    /**
+     * Creates a new <li> and loads the next image in the sequence inside it.
+     * With jQuery we add the "load" event handler to the image, so when it's successfully loaded, we call the "imageLoaded" function.
+     */
+    function loadImage() {
+        // Creates a new <li>
+        var li = document.createElement("li");
+        // Generates the image file name using the incremented "loadedImages" variable
+        var imageName = "img/360/IMG_" + (loadedImages + 1) + ".jpg";
+        /*
+            Creates a new <img> and sets its src attribute to point to the file name we generated.
+            It also hides the image by applying the "previous-image" CSS class to it.
+            The image then is added to the <li>.
+        */
+        var image = $('<img>').attr('src', imageName).addClass("previous-image").appendTo(li);
+        // We add the newly added image object (returned by jQuery) to the "frames" array.
+        frames.push(image);
+        // We add the <li> to the <ol>
+        $images.append(li);
+        /*
+            Adds the "load" event handler to the new image.
+            When the event triggers it calls the "imageLoaded" function.
+        */
+        $(image).load(function() {
+            imageLoaded();
+        });
+    };
+
+    /**
+     * It handles the image "load" events.
+     * Each time this function is called it checks if all the images have been loaded or it has to load the next one.
+     * Every time a new image is succesfully loaded, we set the percentage value of the preloader to notify the user about the loading progress.
+     * If all the images are loaded, it hides the preloader using the jQuery "fadeOut" method, which on complete stops the preloader rendering
+     * and calls the "showThreesixty" method, that displays the image slider.
+     */
+    function imageLoaded() {
+        // Increments the value of the "loadedImages" variable
+        loadedImages++;
+        // Updates the preloader percentage text
+        $("#spinner span").text(Math.floor(loadedImages / totalFrames * 100) + "%");
+        // Checks if the currently loaded image is the last one in the sequence...
+        if (loadedImages == totalFrames) {
+            // ...if so, it makes the first image in the sequence to be visible by removing the "previous-image" class and applying the "current-image" on it
+            frames[0].removeClass("previous-image").addClass("current-image");
+            /*
+                Displays the image slider by using the jQuery "fadeOut" animation and its complete event handler.
+                When the preloader is completely faded, it stops the preloader rendering and calls the "showThreesixty" function to display the images.
+            */
+            $("#spinner").fadeOut("slow", function(){
+                spinner.hide();
+                showThreesixty();
+            });
+        } else {
+            // ...if not, Loads the next image in the sequence
+            loadImage();
+        }
+    };
+
+    /**
+     * Displays the images with the "swooshy" spinning effect.
+     * As the endFrame is set to -720, the slider will take 4 complete spin before it stops.
+     * At this point it also sets the application to be ready for the user interaction.
+     */
+    function showThreesixty () {
+        // Fades in the image slider by using the jQuery "fadeIn" method
+        $images.fadeIn("slow");
+        // Sets the "ready" variable to true, so the app now reacts to user interaction
+        ready = true;
+        // Sets the endFrame to an initial value...
+        endFrame = -720;
+        // ...so when the animation renders, it will initially take 4 complete spins.
+        if(!demoMode) {
+            refresh();
+        } else {
+            fakePointerTimer = window.setInterval(moveFakePointer, 100);
+        }
+    };
+
+    /*
+    * Moves the fake pointer, so that we can have some demo spinning until the user interferes with their pointer
+    */
+    function moveFakePointer () {
+        fakePointer.x += fakePointer.speed;
+        trackPointer();
+    };
+
+    /*
+    * Stops the fake pointer moving and lets the user control the spinning
+    */
+    function quitDemoMode() {
+        window.clearInterval(fakePointerTimer);
+        demoMode = false;
+    };
+
+    /*
+        We launch the application by...
+        Adding the preloader, and...
+    */
+    addSpinner();
+    // loading the firt image in the sequence.
+    loadImage();
+
+    /**
+     * Renders the image slider frame animations.
+     */
+    function render () {
+        // The rendering function only runs if the "currentFrame" value hasn't reached the "endFrame" one
+        if(currentFrame !== endFrame)
+        {
+            /*
+                Calculates the 10% of the distance between the "currentFrame" and the "endFrame".
+                By adding only 10% we get a nice smooth and eased animation.
+                If the distance is a positive number, we have to ceil the value, if its a negative number, we have to floor it to make sure
+                that the "currentFrame" value surely reaches the "endFrame" value and the rendering doesn't end up in an infinite loop.
+            */
+            var frameEasing = endFrame < currentFrame ? Math.floor((endFrame - currentFrame) * 0.1) : Math.ceil((endFrame - currentFrame) * 0.1);
+            // Sets the current image to be hidden
+            hidePreviousFrame();
+            // Increments / decrements the "currentFrame" value by the 10% of the frame distance
+            currentFrame += frameEasing;
+            // Sets the current image to be visible
+            showCurrentFrame();
+        } else {
+            // If the rendering can stop, we stop and clear the ticker
+            window.clearInterval(ticker);
+            ticker = 0;
+        }
+    };
+
+    /**
+     * Creates a new setInterval and stores it in the "ticker"
+     * By default I set the FPS value to 60 which gives a nice and smooth rendering in newer browsers
+     * and relatively fast machines, but obviously it could be too high for an older architecture.
+     */
+    function refresh () {
+        // If the ticker is not running already...
+        if (ticker === 0) {
+            // Let's create a new one!
+            ticker = self.setInterval(render, Math.round(1000 / 60));
+        }
+    };
+
+    /**
+     * Hides the previous frame
+     */
+    function hidePreviousFrame() {
+        /*
+            Replaces the "current-image" class with the "previous-image" one on the image.
+            It calls the "getNormalizedCurrentFrame" method to translate the "currentFrame" value to the "totalFrames" range (1-180 by default).
+        */
+        frames[getNormalizedCurrentFrame()].removeClass("current-image").addClass("previous-image");
+    };
+
+    /**
+     * Displays the current frame
+     */
+    function showCurrentFrame() {
+        /*
+            Replaces the "current-image" class with the "previous-image" one on the image.
+            It calls the "getNormalizedCurrentFrame" method to translate the "currentFrame" value to the "totalFrames" range (1-180 by default).
+        */
+        frames[getNormalizedCurrentFrame()].removeClass("previous-image").addClass("current-image");
+    };
+
+    /**
+     * Returns the "currentFrame" value translated to a value inside the range of 0 and "totalFrames"
+     */
+    function getNormalizedCurrentFrame() {
+        var c = -Math.ceil(currentFrame % totalFrames);
+        if (c < 0) c += (totalFrames - 1);
+        return c;
+    };
+
+    /**
+     * Returns a simple event regarding the original event is a mouse event or a touch event.
+     */
+    function getPointerEvent(event) {
+        return event.originalEvent.targetTouches ? event.originalEvent.targetTouches[0] : event;
+    };
+
+    /**
+     * Adds the jQuery "mousedown" event to the image slider wrapper.
+     */
+    $container.on("mousedown", function (event) {
+        quitDemoMode();
+
+        // Prevents the original event handler behaciour
+        event.preventDefault();
+        // Stores the pointer x position as the starting position
+        pointerStartPosX = getPointerEvent(event).pageX;
+        // Tells the pointer tracking function that the user is actually dragging the pointer and it needs to track the pointer changes
+        dragging = true;
+    });
+
+    /**
+     * Adds the jQuery "mouseup" event to the document. We use the document because we want to let the user to be able to drag
+     * the mouse outside the image slider as well, providing a much bigger "playground".
+     */
+    $document.on("mouseup", function (event){
+        // Prevents the original event handler behaciour
+        event.preventDefault();
+        // Tells the pointer tracking function that the user finished dragging the pointer and it doesn't need to track the pointer changes anymore
+        dragging = false;
+    });
+
+    /**
+     * Adds the jQuery "mousemove" event handler to the document. By using the document again we give the user a better user experience
+     * by providing more playing area for the mouse interaction.
+     */
+    $document.on("mousemove", function (event){
+        if(demoMode) {
+            return;
+        }
+
+        // Prevents the original event handler behaciour
+        event.preventDefault();
+        // Starts tracking the pointer X position changes
+        trackPointer(event);
+    });
+
+    /**
+     *
+     */
+    $container.on("touchstart", function (event) {
+        quitDemoMode();
+
+        // Prevents the original event handler behaciour
+        event.preventDefault();
+        // Stores the pointer x position as the starting position
+        pointerStartPosX = getPointerEvent(event).pageX;
+        // Tells the pointer tracking function that the user is actually dragging the pointer and it needs to track the pointer changes
+        dragging = true;
+    });
+
+    /**
+     *
+     */
+    $container.on("touchmove", function (event) {
+        // Prevents the original event handler behaciour
+        event.preventDefault();
+        // Starts tracking the pointer X position changes
+        trackPointer(event);
+    });
+
+    /**
+     *
+     */
+    $container.on("touchend", function (event) {
+        // Prevents the original event handler behaciour
+        event.preventDefault();
+        // Tells the pointer tracking function that the user finished dragging the pointer and it doesn't need to track the pointer changes anymore
+        dragging = false;
+    });
+
+    /**
+     * Tracks the pointer X position changes and calculates the "endFrame" for the image slider frame animation.
+     * This function only runs if the application is ready and the user really is dragging the pointer; this way we can avoid unnecessary calculations and CPU usage.
+     */
+    function trackPointer(event) {
+        var userDragging = ready && dragging ? true : false;
+        var demoDragging = demoMode;
+
+        if(userDragging || demoDragging) {
+
+            // Stores the last x position of the pointer
+            pointerEndPosX = userDragging ? getPointerEvent(event).pageX : fakePointer.x;
+
+            // Checks if there is enough time past between this and the last time period of tracking
+            if(monitorStartTime < new Date().getTime() - monitorInt) {
+                // Calculates the distance between the pointer starting and ending position during the last tracking time period
+                pointerDistance = pointerEndPosX - pointerStartPosX;
+                // Calculates the endFrame using the distance between the pointer X starting and ending positions and the "speedMultiplier" values
+                endFrame = currentFrame + Math.ceil((totalFrames - 1) * speedMultiplier * (pointerDistance / $container.width()));
+                // Updates the image slider frame animation
+                refresh();
+                // restarts counting the pointer tracking period
+                monitorStartTime = new Date().getTime();
+                // Stores the the pointer X position as the starting position (because we started a new tracking period)
+
+                pointerStartPosX = userDragging ? getPointerEvent(event).pageX : fakePointer.x;
+            }
+        } else {
+            return;
+        }
+    };
+});

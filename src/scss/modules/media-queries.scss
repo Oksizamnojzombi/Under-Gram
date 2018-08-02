@@ -12,15 +12,6 @@
       padding: 65px 45px;
     }
   }
-
-  .slider-360 {
-    table {
-      img {
-        height: 435px;
-        width: 880px;
-      }
-    }
-  }
 }
 
 @media screen and (max-width: 990px) {
@@ -144,11 +135,6 @@
   .white-blocks-section .container-left-img .img-absolute {
     left: -85px;
     width: 67%;
-  }
-
-  .slider-360 table img {
-    height: 355px;
-    width: 700px;
   }
 
   .interesting-to-know .flex-container .flex-content {
@@ -280,11 +266,6 @@
     margin: 45px auto;
   }
 
-  .slider-360 table img {
-    height: 305px;
-    width: 500px;
-  }
-
   .interesting-to-know .flex-container .flex-content {
     width: 90%;
     margin: 0 auto;
@@ -390,11 +371,6 @@
   .white-blocks-section .container-left-img, .white-blocks-section .container-right-img {
     padding: 100px 25px 35px;
   }
-
-  .slider-360 table img {
-    height: 270px;
-    width: 425px;
-  }
 }
 
 @media screen and (max-width: 435px) {
@@ -407,7 +383,7 @@
   }
 
   .container-bg {
-    background-position: 40% 0px;
+    background-position: 55% 0px;
 
     .text-banner {
       padding-left: 0;
@@ -480,11 +456,6 @@
 
   .white-blocks-section .container-left-img, .white-blocks-section .container-right-img {
     padding: 35px 25px 35px;
-  }
-
-  .slider-360 table img {
-    height: 178px;
-    width: 300px;
   }
 
   .advanced-optical {

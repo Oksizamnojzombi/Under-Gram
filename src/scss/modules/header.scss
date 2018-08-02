@@ -14,6 +14,14 @@ header {
     flex-grow: inherit;
   }
 
+  .navbar-brand {
+    max-width: 225px;
+
+    img {
+      width: 100%;
+    }
+  }
+
   .header-menu {
     display: flex;
     justify-content: space-between;
