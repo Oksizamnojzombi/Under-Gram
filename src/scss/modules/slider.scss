@@ -125,4 +125,29 @@ screen and (-webkit-min-device-pixel-ratio: 2) and (orientation:portrait) {
     justify-content: space-around;
     margin: 70px auto 20px;
   }
+
+  .colors-box {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    .descript-text {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+
+    [class*="color-"] {
+      width: 35px;
+      height: 35px;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      background: $main-gold;
+      margin-right: 5px;
+      box-sizing: content-box;
+
+      box-shadow:0 0 0 1px rgba(179,143,87,.6);
+      border: 6px solid rgba(255,255,255,1);
+    }
+  }
 }
