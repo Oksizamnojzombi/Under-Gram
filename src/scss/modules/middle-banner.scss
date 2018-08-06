@@ -1,12 +1,23 @@
 .middle_banner {
   background-color: $superlightblue;
-  background: url("../../img/PrestigeBlock.png") no-repeat center;
-  background-size: cover;
   padding: 97px 0 59px;
+  position: relative;
 
   .container {
     padding: 95px 115px;
     text-align: left;
+
+    &.middle-box {
+      border: 1px solid $main-gold;
+      border-radius: 8px;
+
+      .middle-img-banner {
+        position: absolute;
+        top: 0;
+        right: -3%;
+        height: 100%;
+      }
+    }
   }
 
   .big-text {
