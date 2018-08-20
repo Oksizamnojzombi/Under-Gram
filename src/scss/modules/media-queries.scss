@@ -1,3 +1,29 @@
+@media screen and (max-width: 1441px) {
+  .craftsmaship {
+    .img-container {
+      .first-block {
+        left: -2%;
+
+        &:before {
+          bottom: -114%;
+          height: 86px;
+        }
+
+        &:after {
+          bottom: -143%;
+        }
+      }
+
+      .second-block {
+        top: -9%;
+      }
+
+      .fourth-block {
+        bottom: 57%;
+      }
+    }
+  }
+}
 @media screen and (max-width: 1024px){
   .container-bg {
     min-height: 50vh;
@@ -76,27 +102,31 @@
       }
 
       .second-block {
-        left: 51%;
-        top: -25%;
+        left: 45%;
+        top: -8%;
       }
 
       .third-block {
-        right: 27%;
-        top: 34%;
+        right: 7%;
+        top: 55%;
       }
 
       .fourth-block {
-        bottom: 27%;
-        left: 45%;
+        bottom: 13%;
+        left: 57%;
 
         &:before {
-          right: 1%;
+          right: 26%;
+          bottom: 5%;
           border-right: none;
           border-left: 1px dashed hsla(0,0%,100%,.5);
+          border-top: none;
+          border-bottom: 1px dashed hsla(0,0%,100%,.5);
         }
 
         &:after {
-          right: 106%;
+          bottom: 151%;
+          right: 132%;
         }
       }
     }
@@ -222,9 +252,15 @@
   }
 
   .craftsmaship {
+    .blue-bg {
+      background-size: contain;
+      background-position: 0px 0px;
+    }
+
     .img-container {
-      margin: 110px auto 30px;
+      margin: 340px auto 30px;
       width: 85%;
+      min-height: auto;
 
       .first-block, .fourth-block, .second-block, .third-block {
         display: none;

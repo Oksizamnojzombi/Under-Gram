@@ -1,5 +1,6 @@
 .blue-bg {
-  background: radial-gradient(circle, rgba(255,255,255,.3) 0%, rgba(13,20,38,1) 40%);
+  background: url("../../img/Craftsmanshipanddurability.jpg") no-repeat center center;
+  background-size: cover;
 }
 
 .craftsmaship {
@@ -13,6 +14,7 @@
     position: relative;
     margin: 122px auto 30px;
     text-align: center;
+    min-height: 450px;
 
     .first-block, .second-block, .third-block, .fourth-block {
       position: absolute;
@@ -33,7 +35,7 @@
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        bottom: -120%;
+        bottom: -230%;
         right: -23%;
         background-color: rgba(67, 82, 121,.8);
         -webkit-box-shadow: 0px 0px 0px 8px rgba(67, 82, 121,.5);
@@ -75,32 +77,32 @@
       margin-top: 35px;
 
       &:after {
-        bottom: 200px;
-        left: 58px;
+        bottom: 237px;
+        left: 67px;
       }
     }
 
     .second-block-mobile {
       &:after {
-        content: '2';
-        bottom: 352px;
-        left: 38%;
+        bottom: 227px;
+        content: "2";
+        left: 30%;
       }
     }
 
     .third-block-mobile {
       &:after {
         content: '3';
-        bottom: 363px;
-        left: 72%;
+        bottom: 349px;
+        left: 34%;
       }
     }
 
     .fourth-block-mobile {
       &:after {
         content: '4';
-        bottom: 218px;
-        left: 37%;
+        bottom: 342px;
+        left: 74%;
       }
     }
 
@@ -113,12 +115,12 @@
     }
 
     .first-block {
-      top: 21%;
-      left: 1%;
+      left: 4%;
+      top: 7%;
 
       &:before {
-        height: 80px;
-        bottom: -94%;
+        bottom: -203%;
+        height: 153px;
         right: -13%;
         border-right: 1px dashed rgba(255,255,255,.5);
       }
@@ -126,7 +128,7 @@
 
     .second-block {
       left: 48%;
-      top: -15%;
+      top: -18%;
 
       &:before {
         height: 75px;
@@ -148,10 +150,10 @@
 
     .third-block {
       right: 24%;
-      top: 34%;
+      top: 62%;
 
       &:before {
-        height: 96px;
+        height: 120px;
         bottom: 15%;
         right: -13%;
         border-top: none;
@@ -160,25 +162,25 @@
       }
 
       &:after {
-        bottom: 185%;
+        bottom: 256%;
         right: -24%;
       }
     }
 
     .fourth-block {
-      bottom: 27%;
-      left: 35%;
+      bottom: 56%;
+      left: 32%;
 
       &:before {
-        height: 36px;
-        bottom: -35%;
-        right: -13%;
+        bottom: -123%;
+        height: 98px;
+        right: -1%;
         border-right: 1px dashed rgba(255,255,255,.5);
       }
 
       &:after {
-        bottom: -58%;
-        right: -24%;
+        bottom: -157%;
+        right: -7%;
       }
     }
 
